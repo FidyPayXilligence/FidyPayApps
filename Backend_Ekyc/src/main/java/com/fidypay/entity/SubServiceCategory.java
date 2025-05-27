@@ -1,0 +1,112 @@
+package com.fidypay.entity;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+@Entity
+@Table(name = "SUB_SERVICE_CATEGORY")
+@EntityListeners(AuditingEntityListener.class)
+public class SubServiceCategory {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "SUB_SERVICE_CATEGORY_ID")
+	private long subServiceCategoryId;
+
+	@ManyToOne
+	@JoinColumn(name = "SERVICE_CATEGORY_ID")
+	private ServiceCategory serviceCategory;
+
+	@Column(name = "SUB_SERVICE_CATEGORY_NAME", length = 100)
+	private String subServiceCategoryName;
+
+	@Column(name = "SUB_SERVICE_CATEGORY_DETAILS", length = 200)
+	private String subServiceCategoryDetails;
+
+	@Column(name = "IS_SUB_SERVICE_CAT_DELETED", length = 1)
+	private Character isSubServiceCatDeleted;
+
+	@OneToMany(mappedBy = "subServiceCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<ServiceInfo> serviceInfos = new HashSet<ServiceInfo>(0);
+
+	public SubServiceCategory() {
+	}
+
+	public SubServiceCategory(long subServiceCategoryId) {
+		this.subServiceCategoryId = subServiceCategoryId;
+	}
+
+	public SubServiceCategory(long subServiceCategoryId, ServiceCategory serviceCategory, String subServiceCategoryName,
+			String subServiceCategoryDetails, Character isSubServiceCatDeleted, Set<ServiceInfo> serviceInfos) {
+		this.subServiceCategoryId = subServiceCategoryId;
+		this.serviceCategory = serviceCategory;
+		this.subServiceCategoryName = subServiceCategoryName;
+		this.subServiceCategoryDetails = subServiceCategoryDetails;
+		this.isSubServiceCatDeleted = isSubServiceCatDeleted;
+		this.serviceInfos = serviceInfos;
+	}
+
+	public long getSubServiceCategoryId() {
+		return this.subServiceCategoryId;
+	}
+
+	public void setSubServiceCategoryId(long subServiceCategoryId) {
+		this.subServiceCategoryId = subServiceCategoryId;
+	}
+
+	public ServiceCategory getServiceCategory() {
+		return this.serviceCategory;
+	}
+
+	public void setServiceCategory(ServiceCategory serviceCategory) {
+		this.serviceCategory = serviceCategory;
+	}
+
+	public String getSubServiceCategoryName() {
+		return this.subServiceCategoryName;
+	}
+
+	public void setSubServiceCategoryName(String subServiceCategoryName) {
+		this.subServiceCategoryName = subServiceCategoryName;
+	}
+
+	public String getSubServiceCategoryDetails() {
+		return this.subServiceCategoryDetails;
+	}
+
+	public void setSubServiceCategoryDetails(String subServiceCategoryDetails) {
+		this.subServiceCategoryDetails = subServiceCategoryDetails;
+	}
+
+	public Character getIsSubServiceCatDeleted() {
+		return this.isSubServiceCatDeleted;
+	}
+
+	public void setIsSubServiceCatDeleted(Character isSubServiceCatDeleted) {
+		this.isSubServiceCatDeleted = isSubServiceCatDeleted;
+	}
+
+	public Set<ServiceInfo> getServiceInfos() {
+		return this.serviceInfos;
+	}
+
+	public void setServiceInfos(Set<ServiceInfo> serviceInfos) {
+		this.serviceInfos = serviceInfos;
+	}
+
+}

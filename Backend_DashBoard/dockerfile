@@ -1,0 +1,16 @@
+FROM eclipse-temurin:21-jre-alpine AS builder
+
+WORKDIR /workspace/extracted
+COPY ./target/*.jar app.jar
+RUN java -Djarmode=layertools -jar app.jar extract
+
+FROM eclipse-temurin:21-jre-alpine
+
+WORKDIR /app
+COPY --from=builder /workspace/extracted/dependencies/ ./
+COPY --from=builder /workspace/extracted/spring-boot-loader/ ./
+COPY --from=builder /workspace/extracted/snapshot-dependencies/ ./
+COPY --from=builder /workspace/extracted/application/ ./
+
+EXPOSE 8007
+ENTRYPOINT ["java", "org.springframework.boot.loader.JarLauncher"]
