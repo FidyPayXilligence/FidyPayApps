@@ -1,0 +1,16 @@
+
+====================================================================================================================
+File Name: AWS_EKYC-master.zip
+Date : 29th May 2025
+Modified by : Lijomon
+Changes : DECENTRO_API_BASE_URL to use /v2/kyc/aadhaar/otp/validate
+	Artifacts modified :- SignzyService.java
+Comments : Changed the DECENTRO_API_BASE_URL 
+	Updated Endpoints:
+		Generate OTP: https://in.decentro.tech/v2/kyc/aadhaar/otp
+		Validate OTP: https://in.decentro.tech/v2/kyc/aadhaar/otp/validate
+
+	Older Endpoints:
+		https://in.decentro.tech/v2/kyc/aadhaar/otp
+   		https://in.decentro.tech/v2/kyc/aadhaar_connect/otp/validate	
+====================================================================================================================	
